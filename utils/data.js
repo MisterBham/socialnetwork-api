@@ -1,4 +1,5 @@
 const { User, Thought } = require('../models');
+const { connect, connection } = require('mongoose');
 
 const userData = [
     {"username":"elupton0","email":"itoland0@e-recht24.de"},
@@ -35,6 +36,8 @@ const thoughtData = [
     {"thoughtText":"In hac habitasse platea dictumst."},
     {"thoughtText":"Mauris sit amet eros."},
 ];
+
+
 
 const seedUsers = () => User.insertMany(userData);
 

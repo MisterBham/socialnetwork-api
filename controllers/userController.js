@@ -47,6 +47,7 @@ module.exports = {
             res.json(user);
         } catch (err) {
             res.status(500).json(err);
+            console.log(err);
         }
     },
 
@@ -66,8 +67,16 @@ module.exports = {
 
     async addFriend(req, res) {
         try {
-            const friend = await User.findOneAndUpdate({ _id: req.params.userId }, { $push: { friends: req.params.friendId } });
-            const thought = await Thought.findOneAndUpdate({ _id: req.params.thoughtId })
+            const friend = await User.findOneAndUpdate(
+                { _id: req.params.userId }, 
+                { $push: { friends: req.params.friendId } },
+                { new: true }
+                );
+
+            if (!friend) {
+                res.status(404).json({ message: 'Error: Please verify both userId and friendId.' })
+            }
+            // const thought = await Thought.findOneAndUpdate({ _id: req.params.thoughtId })
             // 2nd query, Thought.findOneAndUpdate
             // , { $push: { reactions: { _id: req.params.reactionId } } }
             res.json(friend);
@@ -78,10 +87,14 @@ module.exports = {
 
     async deleteFriend(req, res) {
         try {
-            const friend = await User.findOneAndDelete({ _id: req.params.userId }, { $pull: { friends: req.params.friendId } });
+            const friend = await User.findOneAndUpdate(
+                { _id: req.params.userId }, 
+                { $pull: { friends: req.params.friendId } },
+                { new: true }
+                );
 
             if(!friend) {
-                return res.status(404).json({ message: 'No friend found in database with this ID.' });
+                return res.status(404).json({ message: 'Error: Please verify both userId and friendId.' });
             }
 
             res.json(friend);

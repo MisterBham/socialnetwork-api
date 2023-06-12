@@ -26,7 +26,14 @@ module.exports = {
     async createThought(req, res) {
         try {
             const thought = await Thought.create(req.body);
-            // , { $push: { thoughts: { _id: req.params.userId } } }
+
+            const user = await User.findOneAndUpdate(
+                { _id: req.params.userId },
+                { $set: req.body },
+                { runValidators: true, new: true },
+                { $push: { user: { thoughtId: req.params.thoughtId }  } }
+            )
+
             res.json(thought);
         } catch (err) {
             res.status(500).json(err);
@@ -69,18 +76,31 @@ module.exports = {
 
     async createReaction(req, res) {
         try {
-            const reaction = await Reaction.create(req.body);
-            // 2nd query, Thought.findOneAndUpdate
-            // , { $push: { reactions: { _id: req.params.reactionId } } }
-            res.json(reaction);
+            const reaction = await Thought
+            .findOneAndUpdate(
+            { _id: req.params.thoughtId },
+            { $addToSet: { reactions: req.body} },
+            { new: true })
+            .select('-__v')
+            .populate({path: 'reactions', select: '-__v'})
+
+        if (!reaction) {
+            return res.status(404).json({ message: 'No thought found in database with this ID.' });
+        }
+
+        res.json(reaction);
         } catch (err) {
-            res.status(500).json(err);
+        res.status(500).json(err);
         }
     },
 
     async deleteReaction(req, res) {
         try {
-            const reaction = await Reaction.findOneAndDelete({ _id: req.params.reactionId },{ $pull: { reactions: { _id: req.params.reactionId } } });
+            const reaction = await Thought.findOneAndUpdate(
+                { _id: req.params.thoughtId },
+                { $pull: { reactions: { _id: req.params.reactionId } } },
+                { new: true }
+                );
 
             if(!reaction) {
                 return res.status(404).json({ message: 'No reaction found in database with this ID.' });
@@ -91,5 +111,4 @@ module.exports = {
             res.status(500).json(err);
         }
     },
-
 };
