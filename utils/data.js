@@ -1,5 +1,5 @@
 const { User, Thought } = require('../models');
-const { connect, connection } = require('mongoose');
+const connection = require('../config/connection');
 
 const userData = [
     {"username":"elupton0","email":"itoland0@e-recht24.de"},
@@ -37,17 +37,21 @@ const thoughtData = [
     {"thoughtText":"Mauris sit amet eros."},
 ];
 
+connection.on('error', (err) => err);
 
+connection.once('open', async () => {
+    console.log('Connection to db successfully established.');
 
-const seedUsers = () => User.insertMany(userData);
+    await User.deleteMany({});
+    await Thought.deleteMany({});
 
-const seedThoughts = () => Thought.insertMany(thoughtData);
+    await User.collection.insertMany(userData);
+        console.table(userData);
+        console.log('---------- \n USERS seeded... \n ----------');
+    await Thought.collection.insertMany(thoughtData);
+        console.table(thoughtData);
+        console.log('---------- \n THOUGHTS seeded... \n ----------');
 
-const seedAll = async () => {
-    await seedUsers();
-    console.log('---------- \n USERS seeded... \n ----------');
-    await seedThoughts();
-    console.log('---------- \n THOUGHTS seeded... \n ----------');
-};
-
-seedAll();
+    console.info('Seeding complete! 🌱');
+    process.exit(0);
+});

@@ -34,7 +34,7 @@ module.exports = {
 
     async updateUser(req, res) {
         try {
-            const user = User.findOneAndUpdate(
+            const user = await User.findOneAndUpdate(
                 { _id: req.params.userId },
                 { $set: req.body },
                 { runValidators: true, new: true },
@@ -71,14 +71,14 @@ module.exports = {
                 { _id: req.params.userId }, 
                 { $push: { friends: req.params.friendId } },
                 { new: true }
+                .select('-__v')
+                .populate({path: 'friends', select: '-__v'})
                 );
 
             if (!friend) {
                 res.status(404).json({ message: 'Error: Please verify both userId and friendId.' })
             }
-            // const thought = await Thought.findOneAndUpdate({ _id: req.params.thoughtId })
-            // 2nd query, Thought.findOneAndUpdate
-            // , { $push: { reactions: { _id: req.params.reactionId } } }
+
             res.json(friend);
         } catch (err) {
             res.status(500).json(err);

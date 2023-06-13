@@ -42,7 +42,7 @@ module.exports = {
 
     async updateThought(req, res) {
         try {
-            const thought = Thought.findOneAndUpdate(
+            const thought = await Thought.findOneAndUpdate(
                 { _id: req.params.thoughtId },
                 { $set: req.body },
                 { runValidators: true, new: true },
@@ -62,7 +62,6 @@ module.exports = {
     async deleteThought(req, res) {
         try {
             const thought = await Thought.findOneAndDelete({ _id: req.params.thoughtId });
-            // ,{ $pull: { Reaction: { _id: req.params.reactionId } } }
 
             if(!thought) {
                 return res.status(404).json({ message: 'No thought found in database with this ID.' });
@@ -76,11 +75,10 @@ module.exports = {
 
     async createReaction(req, res) {
         try {
-            const reaction = await Thought
-            .findOneAndUpdate(
+            const reaction = await Thought.findOneAndUpdate(
             { _id: req.params.thoughtId },
             { $addToSet: { reactions: req.body} },
-            { new: true })
+            { new: true, runValidators: true })
             .select('-__v')
             .populate({path: 'reactions', select: '-__v'})
 
@@ -99,7 +97,7 @@ module.exports = {
             const reaction = await Thought.findOneAndUpdate(
                 { _id: req.params.thoughtId },
                 { $pull: { reactions: { _id: req.params.reactionId } } },
-                { new: true }
+                { new: true, runValidators: true }
                 );
 
             if(!reaction) {
