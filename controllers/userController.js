@@ -58,8 +58,13 @@ module.exports = {
         try {
             const user = await User.findOneAndDelete(
                 { _id: req.params.userId },
-                { $pull: { thoughts: { username: user.username } } }
                 );
+
+            const thought = await Thought.deleteMany(
+                { _id: { $in: user.thoughts  } }
+            );
+
+            console.log(user.thoughts)
 
             if(!user) {
                 return res.status(404).json({ message: 'No user found in database with this ID.' });

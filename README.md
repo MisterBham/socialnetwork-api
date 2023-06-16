@@ -7,6 +7,9 @@
 ![Nodemon](https://img.shields.io/badge/Nodemon-76D04B?logo=Nodemon&logoColor=white&style=flat)
 ![.env](https://img.shields.io/badge/.ENV-ECD53F?logo=.ENV&logoColor=white&style=flat)
 
+<video src="https://drive.google.com/file/d/1KgUFJaIFQwq7oTKNgLmNJPKYjCshC0k4/view" controls="controls" style="max-width: 80%">
+</video>
+
 ## Table of Contents 
 * [Description](#Description) 
 
@@ -71,4 +74,7 @@ Should you have any further questions, please reach the developer at: misterbham
 GitHub: <a href="https://github.com/MisterBham">MisterBham</a>. </br> 
 
 ### Screenshots
-
+<img src="./images/users-mongodb.jpg" width=75% height=75%> <br> 
+<img src="./images/thoughts-mongodb.jpg" width=75% height=75%> <br> 
+<img src="./images/users-friends.jpg" width=75% height=75%> <br> 
+<img src="./images//thoughts-reaction.jpg" width=75% height=75%> <br> 
