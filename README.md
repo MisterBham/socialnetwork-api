@@ -8,6 +8,7 @@
 ![.env](https://img.shields.io/badge/.ENV-ECD53F?logo=.ENV&logoColor=white&style=flat)
 
 [![Walkthrough Video](./images/users-mongodb.jpg)](https://drive.google.com/file/d/1KgUFJaIFQwq7oTKNgLmNJPKYjCshC0k4/view)
+Click video above for application walkthrough using seeded data!
 
 ## Table of Contents 
 * [Description](#Description) 
