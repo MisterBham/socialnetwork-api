@@ -12,8 +12,11 @@ module.exports = {
 
     async getSingleUser(req, res) {
         try {
-            const singleUser = await User.findOne({ _id: req.params.userId })
-            .select('-__v');
+            const singleUser = await User.findOne(
+                { _id: req.params.userId }
+            )
+            .populate({ path: 'thoughts', select: '-__v' })
+            .populate({ path: 'friends', select: '-__v' })
 
             !singleUser
                 ? res.status(404).json({ message: 'No user found in database with this ID.' })
@@ -53,7 +56,15 @@ module.exports = {
 
     async deleteUser(req, res) {
         try {
-            const user = await User.findOneAndDelete({ _id: req.params.userId },{ $pull: { Thought: { _id: req.params.userId } } });
+            const user = await User.findOneAndDelete(
+                { _id: req.params.userId },
+                );
+
+            const thought = await Thought.deleteMany(
+                { _id: { $in: user.thoughts  } }
+            );
+
+            console.log(user.thoughts)
 
             if(!user) {
                 return res.status(404).json({ message: 'No user found in database with this ID.' });
@@ -67,37 +78,48 @@ module.exports = {
 
     async addFriend(req, res) {
         try {
-            const friend = await User.findOneAndUpdate(
+            const friend1 = await User.findOneAndUpdate(
                 { _id: req.params.userId }, 
                 { $push: { friends: req.params.friendId } },
                 { new: true }
-                .select('-__v')
-                .populate({path: 'friends', select: '-__v'})
                 );
 
-            if (!friend) {
+            const friend2 = await User.findOneAndUpdate(
+                { _id: req.params.friendId }, 
+                { $push: { friends: req.params.userId } },
+                { new: true }
+            );
+
+            if (!friend1 || !friend2) {
                 res.status(404).json({ message: 'Error: Please verify both userId and friendId.' })
             }
 
-            res.json(friend);
+            res.json(friend1);
         } catch (err) {
             res.status(500).json(err);
+            console.log(err);
         }
     },
 
     async deleteFriend(req, res) {
         try {
-            const friend = await User.findOneAndUpdate(
+            const friend1 = await User.findOneAndUpdate(
                 { _id: req.params.userId }, 
                 { $pull: { friends: req.params.friendId } },
                 { new: true }
                 );
 
-            if(!friend) {
+            const friend2 = await User.findOneAndUpdate(
+                { _id: req.params.friendId }, 
+                { $pull: { friends: req.params.userId } },
+                { new: true }
+                );
+
+            if(!friend1 || !friend2) {
                 return res.status(404).json({ message: 'Error: Please verify both userId and friendId.' });
             }
 
-            res.json(friend);
+            res.json(friend1);
         } catch (err) {
             res.status(500).json(err);
         }
