@@ -15,26 +15,37 @@ const userData = [
 ];
 
 const thoughtData = [
-    {"thoughtText":"Suspendisse potenti."},
-    {"thoughtText":"Donec ut dolor."},
-    {"thoughtText":"Proin at turpis a pede posuere nonummy."},
-    {"thoughtText":"Quisque arcu libero, rutrum ac, lobortis vel, dapibus at, diam."},
-    {"thoughtText":"Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla."},
-    {"thoughtText":"Praesent lectus."},
-    {"thoughtText":"Maecenas tincidunt lacus at velit."},
-    {"thoughtText":"Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo."},
-    {"thoughtText":"Aliquam erat volutpat."},
-    {"thoughtText":"Nullam porttitor lacus at turpis."},
-    {"thoughtText":"Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem."},
-    {"thoughtText":"Maecenas rhoncus aliquam lacus."},
-    {"thoughtText":"Integer ac neque."},
-    {"thoughtText":"Etiam justo."},
-    {"thoughtText":"Maecenas tincidunt lacus at velit."},
-    {"thoughtText":"Nunc purus."},
-    {"thoughtText":"Curabitur convallis."},
-    {"thoughtText":"In congue."},
-    {"thoughtText":"In hac habitasse platea dictumst."},
-    {"thoughtText":"Mauris sit amet eros."},
+    {
+    "thoughtText": "Curabitur convallis.",
+    "username": "elupton0"
+    }, {
+    "thoughtText": "Quisque ut erat.",
+    "username": "vwyles1"
+    }, {
+    "thoughtText": "Sed vel enim sit amet nunc viverra dapibus.",
+    "username": "dberrycloth2"
+    }, {
+    "thoughtText": "Suspendisse ornare consequat lectus.",
+    "username": "cterrington3"
+    }, {
+    "thoughtText": "Nullam varius.",
+    "username": "kstenbridge4"
+    }, {
+    "thoughtText": "Integer non velit.",
+    "username": "hnewcomb5"
+    }, {
+    "thoughtText": "Vestibulum ac est lacinia nisi venenatis tristique.",
+    "username": "msherbrook6"
+    }, {
+    "thoughtText": "Etiam faucibus cursus urna.",
+    "username": "mdeakan7"
+    }, {
+    "thoughtText": "Aliquam erat volutpat.",
+    "username": "clevesley8"
+    }, {
+    "thoughtText": "Curabitur gravida nisi at nibh.",
+    "username": "ntruelock9"
+    }
 ];
 
 connection.on('error', (err) => err);
