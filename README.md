@@ -7,8 +7,7 @@
 ![Nodemon](https://img.shields.io/badge/Nodemon-76D04B?logo=Nodemon&logoColor=white&style=flat)
 ![.env](https://img.shields.io/badge/.ENV-ECD53F?logo=.ENV&logoColor=white&style=flat)
 
-<video src="https://drive.google.com/file/d/1KgUFJaIFQwq7oTKNgLmNJPKYjCshC0k4/view" controls="controls" style="max-width: 80%">
-</video>
+[![Walkthrough Video](./images/users-mongodb.jpg)](https://drive.google.com/file/d/1KgUFJaIFQwq7oTKNgLmNJPKYjCshC0k4/view)
 
 ## Table of Contents 
 * [Description](#Description) 
