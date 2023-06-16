@@ -61,7 +61,7 @@ module.exports = {
                 );
 
             const thought = await Thought.deleteMany(
-                { _id: { $in: user.thoughts  } }
+                { username: user.username }
             );
 
             console.log(user.thoughts)
